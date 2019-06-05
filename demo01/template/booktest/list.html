@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表页</title>
+    <style>
+        a {
+            text-decoration: None;
+            color: #333;
+        }
+        a:hover {color: aqua}
+    </style>
+</head>
+<body>
+<ul>
+    {% for i in books %}
+        <li><a href="/booktest/detail/{{ i.id }}/">{{ i.title }}</a></li>
+    {% endfor %}
+</ul>
+<br><a href="/booktest/index/">返回首页</a>
+</body>
+</html>

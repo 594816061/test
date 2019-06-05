@@ -1,8 +1,9 @@
 
 from django.conf.urls import url
-from .views import index, list
+from .views import index, list, detail
 
 urlpatterns = [
-    url('index/', index),
-    url('list/', list)
+    url(r'^index/$', index),
+    url(r'^list/$', list),
+    url(r'^detail/(\d+)/$', detail)
 ]
