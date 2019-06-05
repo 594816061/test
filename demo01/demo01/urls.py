@@ -15,7 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import HttpResponse
+from django.conf.urls import url, include
+
+
+# def adminpage(request):
+#     """
+#     处理数据
+#     :param request: 代表数据请求
+#     :return: 返回响应
+#     """
+#     return HttpResponse("这是你看到的第一个视图")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # path('admin/', adminpage),
+    # 在项目路由下方添加应用路由配置文件
+    url('booktest/', include('booktest.urls'))
 ]
