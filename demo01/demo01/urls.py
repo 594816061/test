@@ -32,5 +32,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('admin/', adminpage),
     # 在项目路由下方添加应用路由配置文件
-    url('booktest/', include('booktest.urls'))
+    url('booktest/', include('booktest.urls', namespace='booktest'))
 ]

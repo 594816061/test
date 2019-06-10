@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>详情页</title>
-    <script>
-
-    </script>
+    <link rel="stylesheet" href="/static/css/main.css">
+    <script src="/static/js/main.js"></script>
     <style>
-        .center {margin: 0 auto}
+        .center {
+            margin: 0 auto
+        }
+
         .a1 h1 {
             text-align: center;
         }
+
         a {
             text-decoration: None;
         }
@@ -19,13 +22,13 @@
 </head>
 <body>
 <div class="center a1"><h1>详情页</h1></div>
-<h3>书名:  {{ book.title }}</h3>
-<h3>日期:  {{ book.pub_date }}</h3>
+<h3>书名: {{ book.title }}</h3>
+<h3>日期: {{ book.pub_date }}</h3>
 {% for i in book.heroinfo_set.all %}
-    <h3>{{ i.name }}</h3>
+    <h3>{{ i.name }} {{ i.gender }}<a href="{% url 'booktest:deletehero' i.id %}">删除</a><a href="{% url 'booktest:addhero' i.id %}">添加英雄</a></h3>
 {% endfor %}
 <br>
-<a href="/booktest/list/">进入列表页</a>
+<a href="{% url 'booktest:list' %}">进入列表页</a>
 
 </body>
 </html>

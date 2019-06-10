@@ -13,11 +13,13 @@ class BookInfo(models.Model):
     def __str__(self):
         return self.title
 
+
 class HeroInfo(models.Model):
     """英雄类"""
     name = models.CharField(max_length=20)
-    gender = models.BooleanField(default=True)
+    # gender = models.BooleanField(default=True)
     content = models.CharField(max_length=100)
+    gender = models.CharField(max_length=5, choices=(('man', '男'), ('woman', '女')), null=True, blank=True)
     # book作为外键关联到表
     book = models.ForeignKey(BookInfo, on_delete=models.CASCADE)
 
