@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票页面</title>
+</head>
+<body>
+<h3>{{ topic.topic_name }}</h3>
+<form action="{% url 'vote:detail' topic.id %}" method="post">
+    {% for option in topic.options_set.all %}
+        <input type="radio" name="id" value={{ option.id }}>{{ option.option_name }}<br>
+    {% endfor %}
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
