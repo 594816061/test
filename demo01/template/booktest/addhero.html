@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加英雄</title>
+</head>
+<body>
+<form action="{% url 'booktest:addhero' id %}" method="post">
+    英雄姓名：<input type="text", name="hero_name">
+    英雄技能：<input type="text", name="hero_content">
+    英雄性别：<select name="sex">
+    <option value="man">男</option>
+    <option value="woman">女</option>
+    </select>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>

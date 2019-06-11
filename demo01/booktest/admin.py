@@ -23,7 +23,7 @@ class BookInfoAdmin(admin.ModelAdmin):
 
 
 class HeroInfoAdmin(admin.ModelAdmin):
-    """银熊模型后台管理类"""
+    """英雄模型后台管理类"""
     list_display = ('name', 'content')
     list_filter = ('name', 'gender')
     # 搜索框

@@ -9,9 +9,9 @@ urlpatterns = [
     url(r'^detail/(\d+)/$', detail, name='detail'),
 
     # 角色相关
-    url(r'^deletehero/(\d+)$', deletehero, name='deletehero'),
-    url(r'^addhero/(\d+)$', addhero, name='addhero'),
+    url(r'^deletehero/(\d+)/$', deletehero, name='deletehero'),
+    url(r'^addhero/(\d+)/$', addhero, name='addhero'),
 
     # 书籍相关
-    url(r'^deletebook/(\d+)$', deletebook, name='deletebook')
+    url(r'^deletebook/(\d+)/$', deletebook, name='deletebook')
 ]
