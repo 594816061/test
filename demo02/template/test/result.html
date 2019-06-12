@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>投票结果</title>
-</head>
-<body>
-<!-- 得到问题的对象 -->
-{% for option in topic.options_set.all %}
-    {{ option.option_name }}：{{ option.time }}<br>
-{% endfor %}
-<a href="{% url 'vote:index' %}">返回首页</a>
-</body>
-</html>
+{% extends 'test/base.html' %}
+{% block title %}投票结果{% endblock %}
+{% block body %}
+    <!-- 得到问题的对象 -->
+    {% for option in topic.options_set.all %}
+        {{ option.option_name }}：{{ option.time }}<br>
+    {% endfor %}
+    <a href="{% url 'vote:index' %}">返回首页</a>
+{% endblock %}

@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>投票首页</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-</head>
-<body>
-<!-- 获取问题对象列表 -->
+{% extends 'test/base.html' %}
+{% block title %}首页{% endblock %}
+{% block body %}
+    <h4>当前用户：{{ request.user }}</h4><a href="{% url 'vote:my_logout' %}">退出登录</a>
     <ul>
         {% for topic in topics %}
             <li><a href="{% url 'vote:detail' topic.id %}">{{ topic.topic_name }}</a></li>
         {% endfor %}
     </ul>
-
-</body>
-</html>
+{% endblock %}
