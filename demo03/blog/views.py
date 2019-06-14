@@ -2,6 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import View
 from .models import *
 from comments.models import *
+from django.core.paginator import Paginator
+from .tools import GetPage
+import markdown
 
 # Create your views here.
 
@@ -10,7 +13,30 @@ class IndexView(View):
     """首页视图"""
     def get(self, req):
         articles = Article.objects.all()
-        return render(req, 'blog/index.html', locals())
+        newarticles = list()
+        for article in articles:
+            mk = markdown.Markdown(extensions=[
+                'markdown.extensions.extra',
+                'markdown.extensions.codehilite',
+                'markdown.extensions.toc',
+            ])
+            article.body = mk.convert(article.body)
+            article.toc = mk.toc
+            newarticles.append(article)
+        # print(articles)
+        # paginator = Paginator(articles, 3)
+        # num = req.GET.get('page')
+        # num = 1 if num == 0 else num
+        # page = paginator.get_page(num)
+        # print(paginator.count)
+        # print(paginator.object_list)
+        # print(paginator.num_pages)
+        # print(paginator.page_range)
+        # print(page.paginator)
+        p = GetPage()
+        page = p.get_page(req, newarticles, 3)
+        page.path = '/'
+        return render(req, 'blog/index.html', {'page': page})
 
 
 class SingleView(View):
@@ -23,6 +49,13 @@ class SingleView(View):
         :return: 渲染相对应的详情页
         """
         article = get_object_or_404(Article, pk=id)
+        mk = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+        article.body = mk.convert(article.body)
+        article.toc = mk.toc
         return render(req, 'blog/single.html', locals())
 
     def post(self, req, id):
@@ -44,3 +77,34 @@ class SingleView(View):
         comment.content = content
         comment.save()
         return redirect(reverse('blog:single', args=(id,)))
+
+
+class ArchiveView(View):
+    def get(self, req, year, month):
+        articles = Article.objects.filter(create_time__year=year, create_time__month=month)
+        p = GetPage()
+        page = p.get_page(req, articles, 1)
+        page.path = f'/archive/{year}/{month}/'
+        return render(req, 'blog/index.html', {'page': page})
+
+
+class CategoryView(View):
+    def get(self, req, id):
+        articles = get_object_or_404(Category, pk=id).article_set.all()
+        p = GetPage()
+        page = p.get_page(req, articles, 1)
+        page.path = f'/category/{id}/'
+        return render(req, 'blog/index.html', {'page': page})
+
+
+class TagView(View):
+    def get(self, req, id):
+        articles = get_object_or_404(Tag, pk=id).article_set.all()
+        p = GetPage()
+        page = p.get_page(req, articles, 1)
+        page.path = f'/tag/{id}/'
+        return render(req, 'blog/index.html', {'page': page})
+
+
+
+
