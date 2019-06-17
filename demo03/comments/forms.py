@@ -9,4 +9,3 @@
 #         widgets = {
 #
 #         }
-str = 'This is my day!'

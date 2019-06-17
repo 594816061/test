@@ -1,10 +1,12 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.views.generic import View
 from .models import *
 from comments.models import *
 from django.core.paginator import Paginator
 from .tools import GetPage
 import markdown
+from django.core.mail import send_mail,EmailMultiAlternatives
+from demo03 import settings
 
 # Create your views here.
 
@@ -106,5 +108,15 @@ class TagView(View):
         return render(req, 'blog/index.html', {'page': page})
 
 
+class EmailView(View):
+    def get(self, req):
+        mail = EmailMultiAlternatives(subject="测试邮件html格式",
+                                      body="<h1>  <a href = 'http://www.baidu.com'> 百度 </a>  </h1>",
+                                      from_email=settings.DEFAULT_FROM_EMAIL,
+                                      to=["594816061@qq.com", "WWW.2017.WSH.COM"])
+        mail.content_subtype = "html"
+        mail.send()
+
+        return HttpResponse('发送成功')
 
 

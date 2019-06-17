@@ -36,7 +36,7 @@
         <div role="tabpanel" class="tab-pane active" id="login">
             <form action="{% url 'vote:login' %}" method="post">
                 {% csrf_token %}
-
+                <div id="error_info"></div>
                 {{ lf }}
             <input type="submit" value="登录">
             </form>
@@ -54,5 +54,21 @@
     </div>
 
 
+<script>
+    $(function() {
+        $('#id_username').blur(function () {
+            $.ajax({
+                type:'get',
+                url:'/vote/check_my_username/?username='+$('#id_username').val(),
+                success:function (data) {
+                    if (data['statecode'] == 0) {
+                        console.log(data);
+                        $('#error_info').text(data['error'])
+                    }
+                }
+            })
+        })
+    })
+</script>
 
 {% endblock %}

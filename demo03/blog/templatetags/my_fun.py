@@ -1,7 +1,7 @@
 """
 标签工具模块
 """
-from ..models import Article, Category, Tag
+from ..models import Article, Category, Tag, Ads
 from django.template import Library
 
 register = Library()
@@ -29,3 +29,8 @@ def get_category():
 def get_tag():
     """分类"""
     return Tag.objects.all()
+
+
+@register.simple_tag
+def get_ads():
+    return Ads.objects.all()
