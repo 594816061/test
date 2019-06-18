@@ -38,6 +38,8 @@
                 {% csrf_token %}
                 <div id="error_info"></div>
                 {{ lf }}
+                <label for="id_verify"></label>
+                <img src="{% url 'vote:verify' %}" alt="" id="myimg"> <input type="text" name="verifycode" class="form-control" maxlength="150" required="" id="id_verify">
             <input type="submit" value="登录">
             </form>
         </div>
@@ -67,7 +69,12 @@
                     }
                 }
             })
-        })
+        });
+
+        $("#myimg").click( function(){
+                $("#myimg").attr("src","/vote/verify/?t="+ new Date().getTime()  )
+            } )
+
     })
 </script>
 
