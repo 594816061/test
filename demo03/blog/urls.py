@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from .feed import ArticleFeed
 from .views import IndexView, SingleView, ArchiveView, CategoryView, TagView, EmailView
+from haystack.views import SearchView
 app_name = 'blog'
 
 urlpatterns = [
@@ -11,4 +12,5 @@ urlpatterns = [
     url(r'^tag/(\d+)/$', TagView.as_view(), name='tag'),
     url(r'^rss/$', ArticleFeed, name='rss'),
     url(r'^send_email/$', EmailView.as_view(), name='send_email'),
+    url(r'^search/$', SearchView(), name='search'),
 ]

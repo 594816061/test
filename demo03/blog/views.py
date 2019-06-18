@@ -7,12 +7,14 @@ from .tools import GetPage
 import markdown
 from django.core.mail import send_mail,EmailMultiAlternatives
 from demo03 import settings
+from django.views.decorators.cache import cache_page
 
 # Create your views here.
 
 
 class IndexView(View):
     """首页视图"""
+    # @cache_page(60*5)
     def get(self, req):
         articles = Article.objects.all()
         newarticles = list()

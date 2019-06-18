@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'comments',
+    'haystack',
 ]
 
 MIDDLEWARE = [
@@ -133,4 +134,27 @@ EMAIL_PORT = 25 #发件箱的SMTP服务器端口
 EMAIL_HOST_USER = '18137128152@163.com' #发送邮件的邮箱地址
 EMAIL_HOST_PASSWORD = 'qikuedu'
 DEFAULT_FROM_EMAIL = 'zzy0371 <18137128152@163.com>'
+
+# 缓存配置
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.cache.RedisCache",
+        "LOCATION": "localhost:6379",
+        'TIMEOUT': 60,
+        },
+}
+
+# 配置搜索引擎
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+        }
+}
+
+# 分页设置
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
+
+# 索引生成设置
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
