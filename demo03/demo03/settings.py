@@ -144,6 +144,8 @@ CACHES = {
         },
 }
 
+STATIC_ROOT = '/home/wsh/py1903/py1903/demo03/staticroot'
+
 # 配置搜索引擎
 HAYSTACK_CONNECTIONS = {
     'default': {
