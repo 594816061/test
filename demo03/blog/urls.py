@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^archive/(\d+)/(\d+)/$', ArchiveView.as_view(), name='archive'),
     url(r'^category/(\d+)/$', CategoryView.as_view(), name='category'),
     url(r'^tag/(\d+)/$', TagView.as_view(), name='tag'),
-    url(r'^rss/$', ArticleFeed, name='rss'),
+    url(r'^rss/$', ArticleFeed(), name='rss'),
     url(r'^send_email/$', EmailView.as_view(), name='send_email'),
     url(r'^search/$', SearchView(), name='search'),
 ]

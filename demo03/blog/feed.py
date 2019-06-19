@@ -14,7 +14,7 @@ class ArticleFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.description
+        return item.body[:50]
 
     def item_link(self, item):
-        return f'/single/{item.id}'
+        return '/single/%s'%(item.id,)
