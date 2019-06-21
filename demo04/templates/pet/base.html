@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+
+<link href="/static/css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/js/jquery.min.js"></script>
+<!-- Custom Theme files -->
+<link href="/static/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<!-- Custom Theme files -->
+<!-- navigation -->
+<link href="/static/css/component.css" rel="stylesheet" type="text/css"  />
+<!-- navigation -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="My Pets Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--webfont-->
+<link href='http://fonts.useso.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/static/js/jquery.fancybox.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/css/jquery.fancybox.css" media="screen" />
+   <script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+		});
+	</script>
+	{% block link %}{% endblock %}
+
+  <script type="text/javascript" src="/static/js/move-top.js"></script>
+<script type="text/javascript" src="/static/js/easing.js"></script>
+</head>
+<body>
+    <!-- header-section-starts -->
+	<div class="header">
+		<div class="header-top">
+			<div class="container">
+				<p class="location"><i class="location"></i>东三街先锋商务（三楼）</p>
+				<p class="phonenum">+ 655 8858 2068 54892</p>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<div class="header-bottom">
+			<div class="container">
+				<div class="logo">
+					<a href="{% url 'pet:index' %}"><img src="/static/images/logo.png" alt="" /></a>
+				</div>
+				<span class="menu"></span>
+				<div class="top-menu">
+					<ul>
+					<nav class="cl-effect-5">
+						<li><a href="{% url 'pet:index' %}"><span data-hover="Home">首页</span></a></li>
+						<li><a href="{% url 'pet:about' %}"><span data-hover="About">关于</span></a></li>
+						<li><a class="active" href="{% url 'pet:picture' %}"><span data-hover="Photos">图片</span></a></li>
+						<li><a href="{% url 'pet:care' %}"><span data-hover="Care">关心</span></a></li>
+						<li><a href="{% url 'pet:blog' %}"><span data-hover="Blog">博客</span></a></li>
+						<li><a href="{% url 'pet:contact' %}"><span data-hover="Contact">联系我们</span></a></li>
+					</nav>
+					</ul>
+				</div>
+				<!-- script for menu -->
+				<script>
+				$( "span.menu" ).click(function() {
+				  $( ".top-menu" ).slideToggle( "slow", function() {
+				    // Animation complete.
+				  });
+				});
+			</script>
+			<!-- script for menu -->
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!-- header-section-ends -->
+	<!-- content-section-starts -->
+	{% block body %}
+
+    {% endblock %}
+	<!-- content-section-ends -->
+	<!-- footer-section-starts -->
+	<div class="footer">
+		<div class="container">
+			<div class="col-md-5 contact-section">
+				<h4>接触我们</h4>
+				<form action="{% url 'pet:send_email' %}" method="post">
+					{% csrf_token %}
+					<input name="username" type="text" class="text" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}">
+					<input name="email" type="text" class="text" value="邮箱" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '邮箱';}">
+					<textarea name="message" onfocus="if(this.value == '信息') this.value='';" onblur="if(this.value == '') this.value='信息';" >Message</textarea>
+					<input type="submit" value="提交">
+				</form>
+			</div>
+			<div class="col-md-7 follow-us">
+				<h4>跟随我们</h4>
+				<div class="social-icons">
+					<i class="facebook"></i>
+					<i class="twitter"></i>
+					<i class="pinterest"></i>
+					<i class="googlepluse"></i>
+				</div>
+				<p>有些时候，谁不想做条欧洲狗呢。加入我们，一起研究一下把~</p>
+				<div class="copyright">
+					<p>模板之家的广告-> <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<!-- footer-section-ends -->
+	<script type="text/javascript">
+						$(document).ready(function() {
+							/*
+							var defaults = {
+					  			containerID: 'toTop', // fading element id
+								containerHoverID: 'toTopHover', // fading element hover id
+								scrollSpeed: 1200,
+								easingType: 'linear'
+					 		};
+							*/
+
+							$().UItoTop({ easingType: 'easeOutQuart' });
+
+						});
+					</script>
+				<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+</body>
+</html>

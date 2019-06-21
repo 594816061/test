@@ -1,0 +1,97 @@
+{% extends 'pet/base.html' %}
+{% load my_tag %}
+{% block title %}Blog{% endblock %}
+{% block link %}
+	<script src="/static/js/responsiveslides.min.js"></script>
+	<script>
+		$(function () {
+			$("#slider").responsiveSlides({
+			auto: true,
+			speed: 500,
+			namespace: "callbacks",
+			pager: true,
+		  });
+		});
+	</script>
+{% endblock %}
+{% block body %}
+	<div class="content">
+		<div class="main">
+	<div class="container">
+	<div class="blog-content">
+	 <div class="blog-content-head text-left">
+		<h3>博客</h3>
+	</div>
+		<div class="section group">
+			<div class="cont span_2_of_3">
+				{% for blog in page.object_list %}
+				<div class="blog_posts">
+					<div class="section group example">
+						<div class="col blog_1_of_2">
+							<div class="blog_img">
+									<a href="single.html"><img src="/static/media/{{ blog.pic }}" alt=""></a>
+							</div>
+						</div>
+							<div class="col blogdata_1_of_2">
+								<div class="blog_heading">
+								<p><a href="{% url 'pet:single' blog.id %}"><span>{{ blog.title }}</span></a></p>
+								<p class="post">{{ blog.date }} by <a href="#">{{ blog.auth }} </a></p>
+							 </div>
+								<div class="blog_data">
+									<p>{{ blog.mood }}；{{ blog.body|truncatechars:250 }}</p>
+								<div class="more">
+								<a href="{% url 'pet:single' blog.id %}" class="btn btn-1 btn-1d">读更多</a>
+									</div>
+							   </div>
+							</div>
+							 <div class="clearfix"></div>
+						</div>
+					 <div class="clearfix"></div>
+			</div>
+				{% endfor %}
+			<div class="content-pagenation">
+				{% if page.has_previous %}
+					<li><a href="{{ page.path }}?page={{ page.privious_page_number }}">上一页</a></li>
+				{% endif %}
+				{% for i in page.paginator.page_range %}
+					{% if i == page.number %}
+						<li class="current"><a href="{{ page.path }}?page={{ i }}">{{ i }}</a></li>
+					{% else %}
+						<li><a href="{{ page.path }}?page={{ i }}">{{ i }}</a></li>
+					{% endif %}
+				{% endfor %}
+				{% if page.has_next %}
+					<li><a href="{{ page.path }}?page={{ page.next_page_number }}">下一页</a></li>
+				{% endif %}
+					<div class="clearfix"> </div>
+				</div>
+	 </div>
+			<div class="rsidebar span_1_of_3">
+				 <h3>最新文章</h3>
+						<ul>
+							{% get_new_blog_tag as new_blog %}
+							{% for blog in new_blog %}
+							<li><a href="{% url 'pet:single' blog.id %}">{{ blog.title }}</a></li>
+							{% endfor %}
+						</ul>
+						<div class="latest_comments">
+				<h3>最新评论</h3>
+				{% get_new_comment_tag as new_comment %}
+				{% for comment in new_comment %}
+			<div class="comments">
+				<p><span>评论者</span>{{ comment.auth.username }}</p>
+				 <h4><a href="#">{{ comment.body }}</a></h4>
+				 <p>{{ comment.date }}</p>
+			</div>
+				{% endfor %}
+
+			</div>
+			</div>
+		</div>
+
+	</div>
+	</div>
+	</div>
+	</div>
+{% endblock %}
+

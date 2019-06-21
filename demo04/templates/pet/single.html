@@ -1,0 +1,117 @@
+{% extends 'pet/base.html' %}
+{% load my_tag %}
+{% block title %}Single{% endblock %}
+{% block link %}
+	<script src="/static/js/responsiveslides.min.js"></script>
+{% endblock %}
+{% block body %}
+	<div class="content">
+			<div class="main">
+	<div class="container">
+		<div class="blog-content">
+	     <div class="blog-content-head text-left">
+			<h3>博客</h3>
+	    </div>
+			<div class="section group">
+				<div class="cont span_2_of_3">
+					       <div class="blog_desc">
+						<div class="section group example">
+							<div class="col blog_1_of_2">
+				                <div class="blog_img">
+				                	<img src="/static/media/{{ blog.pic }}" alt="">
+				                </div>
+							</div>
+								<div class="col blogdata_1_of_2">
+								<div class="blog_heading">
+									<p><span>{{ blog.title }}</span></p>
+									<p class="post">{{ blog.date }} by {{ blog.auth }} </p>
+							     </div>
+								 <div class="blog_data">
+									 <p>{{ blog.body }}</p>
+				                   </div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						 <div class="clearfix"></div>
+					</div>
+				<div class="single">
+					<p>狗狗是你忠实的伴侣，请善待狗狗，它是你的一部分，而你是它的全部！</p>
+					<div class="clearfix"></div>
+					<div class="leave">
+				<h4>留下评论</h4>
+				</div>
+				<form id="commentform" action="{% url 'pet:comment' blog.id %}" method="post">
+					{% csrf_token %}
+				     <p class="comment-form-author"><label for="author">姓名</label>
+						<input id="author" name="username" type="text" value="" size="30" aria-required="true">
+					 </p>
+					 <p class="comment-form-email">
+						<label for="email">邮箱</label>
+						<input id="email" name="email" type="text" value="" size="30" aria-required="true">
+					 </p>
+					 <p class="comment-form-url">
+						<label for="url">您的主页</label>
+						<input id="url" name="url" type="text" value="" size="30">
+					 </p>
+					 <p class="comment-form-comment">
+						<label for="comment">评语</label>
+						<textarea id="comment" name="comment"></textarea>
+					 </p>
+					 <div class="clearfix"></div>
+					<p class="form-submit">
+			           <input name="submit" type="submit" id="submit" value="提交">
+					</p>
+					<div class="clearfix"></div>
+				   </form>
+				   	<div class="comments1">
+								<h4>评论意见</h4>
+						{% my_comment_tag as page %}
+						{% for comment in page.object_list %}
+						<div class="comments-main">
+									<div class="col-md-2 cmts-main-left">
+										<img src="/static/media/{{ comment.auth.pic }}" alt="">
+									</div>
+									<div class="col-md-10 cmts-main-right">
+										<h5>{{ comment.auth.username }}</h5>
+										<p>{{ comment.body }}</p>
+										<div class="cmts">
+											<div class="col-md-6 cmnts-left">
+												<p>{{ comment.date }}</p>
+											</div>
+											<div class="col-md-6 cmnts-right">
+												<a href="#">答复</a>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+						{% endfor %}
+					</div>
+				</div>
+				</div>
+					</div>
+			<div class="clearfix">
+		</div>
+		<div class="content-pagenation">
+			{% if page.has_previous %}
+				<li><a href="{{ page.path }}?page={{ page.privious_page_number }}">上一页</a></li>
+			{% endif %}
+			{% for i in page.paginator.page_range %}
+				{% if i == page.number %}
+					<li class="current"><a href="{{ page.path }}?page={{ i }}">{{ i }}</a></li>
+				{% else %}
+					<li><a href="{{ page.path }}?page={{ i }}">{{ i }}</a></li>
+				{% endif %}
+			{% endfor %}
+			{% if page.has_next %}
+				<li><a href="{{ page.path }}?page={{ page.next_page_number }}">下一页</a></li>
+			{% endif %}
+			<div class="clearfix"> </div>
+		</div>
+   </div>
+	</div>
+</div>
+		</div>
+{% endblock %}
+
